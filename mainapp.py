@@ -21,6 +21,11 @@ class ArtEngine(QWidget):
         self.dial = QDial(self)
         self.dial.valueChanged.connect(self.imgMan)
 
+        self.Adial = QDial(self)
+        self.Adial.valueChanged.connect(self.imgMan)
+        self.Bdial = QDial(self)
+        self.Bdial.valueChanged.connect(self.imgMan)
+
 
         self.slider = QSlider(Qt.Horizontal)
         self.slider.setFocusPolicy(Qt.StrongFocus)
@@ -42,6 +47,8 @@ class ArtEngine(QWidget):
         layout.addWidget(self.appNameLabel)
         layout.addWidget(self.image)
         layout.addWidget(self.dial)
+        layout.addWidget(self.Adial)
+        layout.addWidget(self.Bdial)
         layout.addWidget(self.slider)
 
         self.setLayout(layout)
@@ -61,13 +68,21 @@ class ArtEngine(QWidget):
         val = self.dial.value()
         iter = self.slider.value()
 
-        k = self.opErode(self.gimg, (iter,iter))
-        erosion = self.opMorphoGradient(k, (val, val))
-
-        self.image.setPixmap(self.cvToPix(erosion))
+        ra = self.Adial.value()
+        rb = self.Bdial.value()
 
 
-    #def testAlgo(self, img):
+        final = self.testAlgo(self.gimg, (iter, iter), 1, (val, val), ra / 180.0, rb / 180.0)
+
+        self.image.setPixmap(self.cvToPix(final))
+
+
+    def testAlgo(self, img, a_kern, a_iter, b_kern, a_ratio, b_ratio):
+        a = self.opErode(img, a_kern, a_iter)
+        sum = cv2.addWeighted(a, a_ratio, self.gimg, (1.0-a_ratio), 0.0)
+        b = self.opMorphoGradient(sum, b_kern)
+        return cv2.addWeighted(b, a_ratio, self.gimg, (1.0-b_ratio), 0.0)
+
 
 
 
