@@ -1,7 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QDial
+from PyQt5.QtWidgets import QApplication, QWidget, QSlider, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QDial
 from PyQt5.QtGui import QIcon, QPixmap, QImage
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot, Qt
 from PIL.ImageQt import ImageQt
 from PIL import Image
 import numpy as np
@@ -21,26 +21,32 @@ class ArtEngine(QWidget):
         self.dial = QDial(self)
         self.dial.valueChanged.connect(self.imgMan)
 
+
+        self.slider = QSlider(Qt.Horizontal)
+        self.slider.setFocusPolicy(Qt.StrongFocus)
+        self.slider.setTickPosition(QSlider.TicksBothSides)
+        self.slider.setTickInterval(10)
+        self.slider.setSingleStep(1)
+        self.slider.valueChanged.connect(self.imgMan)
+
+
+
         img = cv2.imread('img.jpg')
 
+        self.gimg = img
 
         self.image.setPixmap(self.cvToPix(img))
 
-        #self.image.setPixmap(QPixmap('img.jpg'))
 
         layout = QVBoxLayout()
         layout.addWidget(self.appNameLabel)
         layout.addWidget(self.image)
         layout.addWidget(self.dial)
+        layout.addWidget(self.slider)
 
         self.setLayout(layout)
         self.setGeometry(100, 100, 300, 175)
         self.show()
-
-        for i in range(0, 100):
-            if i % 2 == 0:
-                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            self.image.setPixmap(self.cvToPix(img))
 
     # Converts an OpenCV image to PyQt5 image
     def cvToPix(self, img):
@@ -51,12 +57,29 @@ class ArtEngine(QWidget):
         return qpix
 
     @pyqtSlot()
-    def imgMan():
-        True
-        #img = cv2.imread('img.jpg')
-        #self.image.setPixmap(cvToPix(self, img))
+    def imgMan(self):
+        val = self.dial.value()
+        iter = self.slider.value()
+
+        k = self.opErode(self.gimg, (iter,iter))
+        erosion = self.opMorphoGradient(k, (val, val))
+
+        self.image.setPixmap(self.cvToPix(erosion))
 
 
+    #def testAlgo(self, img):
+
+
+
+    # Erosion Operator
+    def opErode(self, img, kern=(5,5), iter=1):
+        kernel = np.ones((kern[0],kern[1]),np.uint8)
+        return cv2.erode(img, kernel, iterations = iter)
+
+    # Morphological Gradient Operator
+    def opMorphoGradient(self, img, kern=(5,5)):
+        kernel = np.ones((kern[0],kern[1]),np.uint8)
+        return cv2.morphologyEx(img, cv2.MORPH_GRADIENT, kernel)
 
 
 
