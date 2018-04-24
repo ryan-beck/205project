@@ -1,11 +1,14 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QSlider, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QDial
+from PyQt5.QtWidgets import QApplication, QWidget, QSlider, QDial, QLabel, QVBoxLayout, QHBoxLayout, QPushButton
 from PyQt5.QtGui import QIcon, QPixmap, QImage
 from PyQt5.QtCore import pyqtSlot, Qt
 from PIL.ImageQt import ImageQt
 from PIL import Image
 import numpy as np
 import cv2
+from testalgo import AlgoOne
+from transformoperator import TranOp
+
 
 
 class ArtEngine(QWidget):
@@ -18,23 +21,9 @@ class ArtEngine(QWidget):
 
         self.appNameLabel = QLabel("Art Engine v0.01", self)
         self.image = QLabel(self)
-        self.dial = QDial(self)
-        self.dial.valueChanged.connect(self.imgMan)
-
-        self.Adial = QDial(self)
-        self.Adial.valueChanged.connect(self.imgMan)
-        self.Bdial = QDial(self)
-        self.Bdial.valueChanged.connect(self.imgMan)
 
 
-        self.slider = QSlider(Qt.Horizontal)
-        self.slider.setFocusPolicy(Qt.StrongFocus)
-        self.slider.setTickPosition(QSlider.TicksBothSides)
-        self.slider.setTickInterval(10)
-        self.slider.setSingleStep(1)
-        self.slider.valueChanged.connect(self.imgMan)
-
-
+        self.tca = AlgoOne(self.imgMan)
 
         img = cv2.imread('img.jpg')
 
@@ -46,14 +35,17 @@ class ArtEngine(QWidget):
         layout = QVBoxLayout()
         layout.addWidget(self.appNameLabel)
         layout.addWidget(self.image)
-        layout.addWidget(self.dial)
-        layout.addWidget(self.Adial)
-        layout.addWidget(self.Bdial)
-        layout.addWidget(self.slider)
+
+
+        layout.addLayout(self.tca.getModBox())
 
         self.setLayout(layout)
         self.setGeometry(100, 100, 300, 175)
         self.show()
+
+
+
+
 
     # Converts an OpenCV image to PyQt5 image
     def cvToPix(self, img):
@@ -65,14 +57,11 @@ class ArtEngine(QWidget):
 
     @pyqtSlot()
     def imgMan(self):
-        val = self.dial.value()
-        iter = self.slider.value()
 
-        ra = self.Adial.value()
-        rb = self.Bdial.value()
+        for op in self.tca.getOperators():
+            op.updateAll()
 
-
-        final = self.testAlgo(self.gimg, (iter, iter), 1, (val, val), ra / 180.0, rb / 180.0)
+        final = self.tca.render(self.gimg)
 
         self.image.setPixmap(self.cvToPix(final))
 
@@ -92,10 +81,6 @@ class ArtEngine(QWidget):
     def opMorphoGradient(self, img, kern=(5,5)):
         kernel = np.ones((kern[0],kern[1]),np.uint8)
         return cv2.morphologyEx(img, cv2.MORPH_GRADIENT, kernel)
-
-
-
-
 
 app = QApplication(sys.argv)
 engine = ArtEngine()
