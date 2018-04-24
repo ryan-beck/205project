@@ -83,9 +83,6 @@ class ArtEngine(QWidget):
         b = self.opMorphoGradient(sum, b_kern)
         return cv2.addWeighted(b, a_ratio, self.gimg, (1.0-b_ratio), 0.0)
 
-
-
-
     # Erosion Operator
     def opErode(self, img, kern=(5,5), iter=1):
         kernel = np.ones((kern[0],kern[1]),np.uint8)
