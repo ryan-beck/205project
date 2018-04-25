@@ -7,6 +7,7 @@ from PIL import Image
 import numpy as np
 import cv2
 from testalgo import AlgoOne
+from testalgo2 import AlgoTwo
 from transformoperator import TranOp
 
 
