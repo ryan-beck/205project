@@ -41,9 +41,8 @@ class ArtEngine(QWidget):
 
         self.setLayout(layout)
         self.setGeometry(100, 100, 300, 175)
+        self.imgMan()
         self.show()
-
-
 
 
 
@@ -60,30 +59,11 @@ class ArtEngine(QWidget):
 
         for op in self.tca.getOperators():
             op.updateAll()
+        self.tca.updateRatios()
 
         final = self.tca.render(self.gimg)
-
         self.image.setPixmap(self.cvToPix(final))
 
-
-    def testAlgo(self, img, a_kern, a_iter, b_kern, a_ratio, b_ratio):
-        a = self.opErode(img, a_kern, a_iter)
-        sum = cv2.addWeighted(a, a_ratio, self.gimg, (1.0-a_ratio), 0.0)
-        b = self.opMorphoGradient(sum, b_kern)
-        return cv2.addWeighted(b, a_ratio, self.gimg, (1.0-b_ratio), 0.0)
-
-
-
-
-    # Erosion Operator
-    def opErode(self, img, kern=(5,5), iter=1):
-        kernel = np.ones((kern[0],kern[1]),np.uint8)
-        return cv2.erode(img, kernel, iterations = iter)
-
-    # Morphological Gradient Operator
-    def opMorphoGradient(self, img, kern=(5,5)):
-        kernel = np.ones((kern[0],kern[1]),np.uint8)
-        return cv2.morphologyEx(img, cv2.MORPH_GRADIENT, kernel)
 
 app = QApplication(sys.argv)
 engine = ArtEngine()
