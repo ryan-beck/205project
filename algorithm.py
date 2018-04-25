@@ -12,6 +12,7 @@ class Algorithm():
 
         self.layout = QVBoxLayout()
 
+
         self.ratioLayout = QHBoxLayout()
         self.controlLayout = QHBoxLayout()
 
@@ -39,7 +40,7 @@ class Algorithm():
 
         for i in range(len(self.opList)):
             manipulation = self.opList[i].transform(final_img)
-            ratio = self.ratioLinks[i] / 360.0
+            ratio = self.ratioLinks[i] / 100.0
 
             final_img = cv2.addWeighted(manipulation, ratio, final_img, (1.0-ratio), 0.0)
 
