@@ -9,7 +9,6 @@ class MorphoGradientOp(TranOp):
         self.addKnob("X", 'x')
         self.addKnob("Y", 'y')
 
-
     def transform(self, img):
         kernel = np.ones((self.tranParams['x'], self.tranParams['y']),np.uint8)
         return cv2.morphologyEx(img, cv2.MORPH_GRADIENT, kernel)
@@ -21,7 +20,6 @@ class ErodeOp(TranOp):
         self.addKnob("X", 'x')
         self.addKnob("Y", 'y')
         self.addKnob("Iterations", 'i')
-
 
     def transform(self, img):
         kernel = np.ones((self.tranParams['x'], self.tranParams['y']),np.uint8)
@@ -38,14 +36,24 @@ class ErodeOp(TranOp):
 #     kernel = np.ones((kern[0],kern[1]),np.uint8)
 #     return cv2.dilate(img,kernel,iterations=1)
 
-class DialationOp(TranOp):
+class DilationOp(TranOp):
 
     def __init__(self, label, slotCallback):
         super().__init__(label, slotCallback)
         self.addKnob("X", 'x')
-        self.addKnob("Y", 'x')
+        self.addKnob("Y", 'y')
         self.addKnob("Iterations", 'i')
 
     def transform(self, img):
-        kernel = np.ones((self.tranParams['x'], sefl.tranParams['y']), np.uint8)
-        return cv2.erode(img, kernel, iterations = (self.tranParams['i'] // 30))
+        kernel = np.ones((self.tranParams['x'], self.tranParams['y']), np.uint8)
+        return cv2.dilate(img, kernel, iterations = (self.tranParams['i'] // 50))
+
+class NegateOp(TranOp):
+
+    def __init__(self, label, slotCallback):
+        super().__init__(label, slotCallback)
+        self.addKnob("Scale", 's')
+
+    def transform(self, img):
+        img = (self.tranParams['s']-img)
+        return img

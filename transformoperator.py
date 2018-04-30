@@ -43,7 +43,11 @@ class TranOp():
 
 
 
-    def addSlider(self, name):
+    def addSlider(self, name, paramName, default=0):
         self.controls[paramName] = ModSlider(name)
-        self.controls[paramName].valueChanged.connect(self.callback)
-        self.layout.addWidget(self.controls[paramName])
+        self.controls[paramName].qw.valueChanged.connect(self.callback)
+        self.tranParams[paramName] = default
+        label = QLabel(name)
+        label.setAlignment(Qt.AlignCenter)
+        self.layout.addWidget(label)
+        self.layout.addWidget(self.controls[paramName].qw)

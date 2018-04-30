@@ -7,8 +7,14 @@ class AlgoOne(Algorithm):
         super().__init__(slotCallback)
 
 
+        erode = ErodeOp("Erode", self.callback)
+        self.addOperator(erode)
+
         morpho = MorphoGradientOp("Morphological Gradient", self.callback)
         self.addOperator(morpho)
 
-        erode = ErodeOp("ErodeOp", self.callback)
-        self.addOperator(erode)
+        erode2 = ErodeOp("Erode Post", self.callback)
+        self.addOperator(erode2)
+
+        erode3 = ErodeOp("Erode Post Post", self.callback)
+        self.addOperator(erode3)
