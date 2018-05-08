@@ -24,8 +24,8 @@ class ArtEngine(QWidget):
         self.image = QLabel(self)
 
 
-        self.tca = AlgoOne(self.imgMan)
-        #self.tca = AlgoOne(self.imgMan)
+        # self.tca = AlgoOne(self.imgMan)
+        self.tca = AlgoTwo(self.imgMan)
 
         img = cv2.imread('img.jpg')
         img = cv2.resize(img,None,fx=1/2, fy=1/2, interpolation = cv2.INTER_CUBIC)
