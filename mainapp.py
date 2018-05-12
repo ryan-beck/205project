@@ -22,8 +22,15 @@ class ArtEngine(QWidget):
         self.image = QLabel(self)
 
         self.tca = AlgoOne(self.imgMan)
-        img = cv2.imread('img.jpg')
-        img = cv2.resize(img,None,fx=1/2, fy=1/2, interpolation = cv2.INTER_CUBIC)
+        options = QFileDialog.Options()
+        options|= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getOpenFileName(self,"Select Image", "","All Files (*);;Python Files (*.py)", options=options)
+
+        img = cv2.imread(fileName)
+        print("before", img.shape)
+        while(img.shape[0] > 300 or img.shape[1] > 1000):
+            img = cv2.resize(img,None,fx=9/10, fy=9/10, interpolation = cv2.INTER_CUBIC)
+        print("after", img.shape)
 
         self.gimg = img
 
@@ -73,10 +80,11 @@ class ArtEngine(QWidget):
     def openButtonClicked(self):
         options = QFileDialog.Options()
         options|= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
+        fileName, _ = QFileDialog.getOpenFileName(self,"Select Image", "","All Files (*);;Python Files (*.py)", options=options)
 
         img = cv2.imread(fileName)
-        img = cv2.resize(img,None,fx=1/2, fy=1/2, interpolation = cv2.INTER_CUBIC)
+        while(img.shape[0] > 300 or img.shape[1] > 1000):
+            img = cv2.resize(img,None,fx=9/10, fy=9/10, interpolation = cv2.INTER_CUBIC)
 
         self.gimg = img
 
