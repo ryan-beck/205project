@@ -24,7 +24,7 @@ class ArtEngine(QWidget):
         self.tca = AlgoOne(self.imgMan)
         options = QFileDialog.Options()
         options|= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self,"Select Image", "","All Files (*);;Python Files (*.py)", options=options)
+        fileName, _ = QFileDialog.getOpenFileName(self,"Select Image", "","Image Files (*.png *.jpg)", options=options)
 
         img = cv2.imread(fileName)
         print("before", img.shape)
@@ -80,7 +80,7 @@ class ArtEngine(QWidget):
     def openButtonClicked(self):
         options = QFileDialog.Options()
         options|= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self,"Select Image", "","All Files (*);;Python Files (*.py)", options=options)
+        fileName, _ = QFileDialog.getOpenFileName(self,"Select Image", "","Image Files (*.png *.jpg)", options=options)
 
         img = cv2.imread(fileName)
         while(img.shape[0] > 300 or img.shape[1] > 1000):
