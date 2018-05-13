@@ -95,9 +95,7 @@ class ArtEngine(QWidget):
         w = len(self.final)
         h = len(self.final[0])
 
-        img = Image.fromarray(self.final)
-
-        img.save("lol.png")
+        cv2.imwrite("lol.png", self.final)
         print('Save Button Clicked')
 
     def shareButtonClicked(self):
