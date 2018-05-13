@@ -95,15 +95,15 @@ class ArtEngine(QWidget):
         w = len(self.final)
         h = len(self.final[0])
 
-        cv2.imwrite("lol.png", self.final)
+        cv2.imwrite("Images/lol.png", self.final)
         print('Save Button Clicked')
 
     def shareButtonClicked(self):
 
-        email = 'asantos@csum.edu'
+        email = 'student@csumb.edu'
         server = smtplib.SMTP(email, 587)
         server.starttls()
-        server.login(email, 'Asantos0341673')
+        server.login(email, 'Password')
 
         msg = "Hello"
 
