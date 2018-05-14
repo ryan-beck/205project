@@ -10,7 +10,7 @@ class MorphoGradientOp(TranOp):
         self.addKnob("Y", 'y')
 
     def transform(self, img):
-        kernel = np.ones((self.tranParams['x'], self.tranParams['y']),np.uint8)
+        kernel = np.ones((self.tranParams['x']//5, self.tranParams['y']//5),np.uint8)
         return cv2.morphologyEx(img, cv2.MORPH_GRADIENT, kernel)
 
 class ErodeOp(TranOp):
