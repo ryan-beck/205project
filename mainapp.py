@@ -127,7 +127,13 @@ class ArtEngine(QWidget):
         w = len(self.final)
         h = len(self.final[0])
 
-        cv2.imwrite("Images/lol.png", self.final)
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getSaveFileName(self,"Save Image",".jpg","Image Files (*.png *.jpg)", options=options)
+        if fileName:
+            print(fileName)
+
+        cv2.imwrite(fileName, self.final)
         print('Save Button Clicked')
 
     def shareButtonClicked(self):
