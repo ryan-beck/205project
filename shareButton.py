@@ -35,7 +35,7 @@ class ShareButtonWindow(QWidget):
 
         mypwd = getpass.getpass('Enter your password: ')
 
-        my_email = "asantos@csumb.edu"
+        my_email = "artengine01@gmail.com"
 
         msg = EmailMessage()
         msg['Subject'] = "Your new image!"
