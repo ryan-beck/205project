@@ -10,6 +10,7 @@ from testalgo import AlgoOne
 from testalgo2 import AlgoTwo
 from finalAlgos import RedNeg, BlueNeg, GreenNeg
 from transformoperator import TranOp
+from shareButton import ShareButtonWindow
 
 class ArtEngine(QWidget):
     def __init__(self):
@@ -116,16 +117,7 @@ class ArtEngine(QWidget):
         print('Save Button Clicked')
 
     def shareButtonClicked(self):
-
-        email = 'student@csumb.edu'
-        server = smtplib.SMTP(email, 587)
-        server.starttls()
-        server.login(email, 'Password')
-
-        msg = "Hello"
-
-        server.sendmail(email, email, msg)
-        server.quit()
+        self.new_win = ShareButtonWindow()
 
     # Converts an OpenCV image to PyQt5 image
     def cvToPix(self, img):
