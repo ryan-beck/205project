@@ -12,6 +12,9 @@ from finalAlgos import RedNeg, BlueNeg, GreenNeg, ErodeMorph, NegateMorph, Dilat
 from transformoperator import TranOp
 from shareButton import ShareButtonWindow
 
+# CST 205, Main application that hosts the GUI,
+# Leo Tordjman, Daniel Kharlamov, Ana Santos, Ryan Beck, 5/2018
+
 class ArtEngine(QWidget):
     def __init__(self):
         super().__init__()

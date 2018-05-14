@@ -2,6 +2,8 @@ from transformoperator import TranOp
 import cv2
 import numpy as np
 
+#CST 205, Basic operations for the algoritms, Daniel Kharlamov and Ryan Beck, 5/2018
+
 class MorphoGradientOp(TranOp):
 
     def __init__(self, label, slotCallback):

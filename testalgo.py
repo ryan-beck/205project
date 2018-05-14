@@ -1,6 +1,9 @@
 from algorithm import Algorithm
 from bop import MorphoGradientOp, ErodeOp
 
+# CST 205, Sandbox for testing algorithms,
+# Ryan Beck & Daniel Kharlamov, 5/2018
+
 class AlgoOne(Algorithm):
 
     def __init__(self, slotCallback):

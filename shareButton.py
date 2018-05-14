@@ -4,6 +4,9 @@ import smtplib
 from email.message import EmailMessage
 import getpass
 
+# CST 205, Email share window,
+# Ana Santos, 5/2018
+
 class ShareButtonWindow(QWidget):
     def __init__(self):
         super().__init__()

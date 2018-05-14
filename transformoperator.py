@@ -3,6 +3,8 @@ from modslider import ModSlider
 from PyQt5.QtWidgets import QVBoxLayout, QDial, QLabel
 from PyQt5.QtCore import Qt
 
+# CST 205, Operator framework for generating signals and slots and UI elements,
+# Daniel Kharlamov, 5/2018
 
 class TranOp():
 

@@ -1,6 +1,9 @@
 from algorithm import Algorithm
 from bop import DilationOp, MorphoGradientOp, NegateOp, BlurOp, TopHatOp, ChangeColorOp
 
+# CST 205, Sandbox for testing algorithms,
+# Ryan Beck & Daniel Kharlamov, 5/2018
+
 class AlgoTwo(Algorithm):
 
     def __init__(self, slotCallback):

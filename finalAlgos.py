@@ -1,6 +1,8 @@
 from algorithm import Algorithm
 from bop import DilationOp, MorphoGradientOp, NegateOp, BlurOp, TopHatOp, ChangeColorOp, ErodeOp
 
+#CST 205, Final algorithms for the application, Ryan Beck, 5/2018
+
 class BlueNeg(Algorithm):
 
     def __init__(self, slotCallback):

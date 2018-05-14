@@ -1,5 +1,9 @@
 from PyQt5.QtWidgets import QSlider, QWidget
 from PyQt5.QtCore import Qt
+
+# CST 205, Wrapper for QSlider that makes our lives easier,
+# Daniel Kharlamov, 5/2018
+
 class ModSlider(QWidget):
 
     def __init__(self, label):

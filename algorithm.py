@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QLabel
 from PyQt5.QtCore import Qt
 import cv2
 
+#CST 205, Algorithm Framework class, Daniel Kharlamov, 5/2018
 
 
 class Algorithm():
@@ -32,9 +33,11 @@ class Algorithm():
     def getModBox(self):
         return self.layout
 
+    # Gets operators
     def getOperators(self):
         return self.opList
 
+    # Renders the images with the operators
     def render(self, img):
         final_img = img
 
@@ -46,13 +49,14 @@ class Algorithm():
 
         return final_img
 
+    # Updates values of ratios
     def updateRatios(self):
         for i in range(len(self.ratioLinks)):
             self.ratioLinks[i] = self.ratioDials[i].getValue()
 
 
 
-
+    # Add an operator to the operator list with all the controls auto generating
     def addOperator(self, op):
         self.opList += [op]
 

@@ -5,7 +5,7 @@ from PyQt5.QtCore import pyqtSlot, Qt
 from PIL.ImageQt import ImageQt
 from PIL import Image
 import numpy as np
-import cv2
+import cv2java
 from testalgo import AlgoOne
 from testalgo2 import AlgoTwo
 from finalAlgos import RedNeg, BlueNeg, GreenNeg, ErodeMorph, NegateMorph, DilateTop, MorphTop, NegateTop
@@ -14,10 +14,12 @@ from shareButton import ShareButtonWindow
 
 import platform
 
+#CST 205, Main App for Windows, Leo Tordjman, 5/2018
+
 class ArtEngine(QMainWindow):
     def __init__(self):
         super().__init__()
-        
+
         #Menu
         if not platform.uname().system.startswith('Darw'):
             self.mainMenu = self.menuBar()
@@ -44,7 +46,7 @@ class ArtEngine(QMainWindow):
             '''
             shareAct = QAction('Share With Email', self)
             shareAct.triggered.connect(self.shareButtonClicked)
-            
+
             toolsMenu = self.mainMenu.addMenu('Tools')
             toolsMenu.addAction(shareAct)
 
@@ -60,16 +62,16 @@ class ArtEngine(QMainWindow):
         self.image = QLabel(self)
 
         self.tca = AlgoOne(self.imgMan)
-        
+
         self.openButtonClicked()
-        
+
         layout = QVBoxLayout()
 
         #Creating Buttons
 
         filterNames = ["Select Filter", "Red x Negative", "Blue x Negative", "Green x Negative", "Erode x Morph", "Negative x Morph", "Dilate x Top Hat", "Morph x Top Hat", "Negate x Top Hat"]
         buttonsLayout = QHBoxLayout()
-        
+
         if platform.uname().system.startswith('Darw'):
             self.openButton = QPushButton('Open', self)
             self.saveButton = QPushButton('Save', self)
@@ -82,7 +84,7 @@ class ArtEngine(QMainWindow):
         self.comboBox.addItems(filterNames)
 
         self.comboBox.currentIndexChanged.connect(self.applyFilterClicked)
-        
+
         if platform.uname().system.startswith('Darw'):
             buttonsLayout.addWidget(self.openButton)
             buttonsLayout.addWidget(self.saveButton)
@@ -103,7 +105,7 @@ class ArtEngine(QMainWindow):
         centralWidget = QWidget(self)
         centralWidget.setLayout(layout)
         self.setCentralWidget(centralWidget)
-        
+
         self.setWindowTitle("ArtEngine v0.01")
         self.setGeometry(100, 100, 300, 175)
         self.imgMan()
