@@ -67,3 +67,25 @@ class DilateTop(Algorithm):
 
         topHat = TopHatOp("Top Hat", self.callback)
         self.addOperator(topHat)
+
+class MorphTop(Algorithm):
+
+    def __init__(self, slotCallback):
+        super().__init__(slotCallback)
+
+        morpho = MorphoGradientOp("Morphological Gradient", self.callback)
+        self.addOperator(morpho)
+
+        topHat = TopHatOp("Top Hat", self.callback)
+        self.addOperator(topHat)
+
+class NegateTop(Algorithm):
+
+    def __init__(self, slotCallback):
+        super().__init__(slotCallback)
+
+        negate = NegateOp("Negate", self.callback)
+        self.addOperator(negate)
+
+        topHat = TopHatOp("Top Hat", self.callback)
+        self.addOperator(topHat)            
