@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QSlider, QDial, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QFileDialog, QComboBox
+from PyQt5.QtWidgets import QApplication, QWidget, QSlider, QDial, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QFileDialog, QComboBox, QStackedLayout
 from PyQt5.QtGui import QIcon, QPixmap, QImage
 from PyQt5.QtCore import pyqtSlot, Qt
 from PIL.ImageQt import ImageQt
@@ -64,18 +64,33 @@ class ArtEngine(QWidget):
         layout.addWidget(self.appNameLabel)
         layout.addWidget(self.image)
 
-        layout.addLayout(self.tca.getModBox())
+
+        self.stacked_layout = QStackedLayout() # Creates stacked layout to hold the dial layouts for algos
+        self.createAlgoLayout()
+
+        layout.addLayout(self.stacked_layout)
+        self.stacked_layout.setCurrentIndex(0)
 
         self.setLayout(layout)
         self.setGeometry(100, 100, 300, 175)
         self.imgMan()
         self.show()
 
+    def createAlgoLayout(self):
+        self.newLayout = self.tca.getModBox()
+        self.newWidget = QWidget()
+        self.newWidget.setLayout(self.newLayout)
+        self.stacked_layout.addWidget(self.newWidget)
+
     def applyFilterClicked(self, value):
         if value == 0:
             self.tca = AlgoOne(self.imgMan)
+            self.createAlgoLayout()
+            self.stacked_layout.setCurrentIndex(self.stacked_layout.count()-1)
         elif value == 1:
             self.tca = AlgoTwo(self.imgMan)
+            self.createAlgoLayout()
+            self.stacked_layout.setCurrentIndex(self.stacked_layout.count()-1)
 
     def openButtonClicked(self):
         options = QFileDialog.Options()
