@@ -5,7 +5,7 @@ from PyQt5.QtCore import pyqtSlot, Qt
 from PIL.ImageQt import ImageQt
 from PIL import Image
 import numpy as np
-import cv2java
+import cv2
 from testalgo import AlgoOne
 from testalgo2 import AlgoTwo
 from finalAlgos import RedNeg, BlueNeg, GreenNeg, ErodeMorph, NegateMorph, DilateTop, MorphTop, NegateTop
