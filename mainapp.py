@@ -8,7 +8,7 @@ import numpy as np
 import cv2
 from testalgo import AlgoOne
 from testalgo2 import AlgoTwo
-from finalAlgos import RedNeg, BlueNeg, GreenNeg, ErodeMorph, NegateMorph, DilateTop, MorphTop, NegateTop
+from finalAlgos import RedNeg, BlueNeg, GreenNeg, ErodeMorph, NegateMorph, DilateTop, MorphTop, NegateTop, BlurTop, BlurNeg
 from transformoperator import TranOp
 from shareButton import ShareButtonWindow
 
@@ -43,7 +43,7 @@ class ArtEngine(QWidget):
 
         #Creating Buttons
 
-        filterNames = ["Select Filter", "Red x Negative", "Blue x Negative", "Green x Negative", "Erode x Morph", "Negative x Morph", "Dilate x Top Hat", "Morph x Top Hat", "Negate x Top Hat"]
+        filterNames = ["Select Filter", "Red x Negative", "Blue x Negative", "Green x Negative", "Erode x Morph", "Negative x Morph", "Dilate x Top Hat", "Morph x Top Hat", "Negative x Top Hat", "Blur x Top Hat", "Blur x Negative"]
         buttonsLayout = QHBoxLayout()
         self.openButton = QPushButton('Open', self)
         self.saveButton = QPushButton('Save', self)
@@ -101,6 +101,10 @@ class ArtEngine(QWidget):
             self.tca = MorphTop(self.imgMan)
         elif value == 8:
             self.tca = NegateTop(self.imgMan)
+        elif value == 9:
+            self.tca = BlurTop(self.imgMan)
+        elif value == 10:
+            self.tca = BlurNeg(self.imgMan)
         self.createAlgoLayout()
         self.stacked_layout.setCurrentIndex(self.stacked_layout.count()-1)
 

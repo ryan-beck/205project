@@ -88,4 +88,26 @@ class NegateTop(Algorithm):
         self.addOperator(negate)
 
         topHat = TopHatOp("Top Hat", self.callback)
-        self.addOperator(topHat)            
+        self.addOperator(topHat)
+
+class BlurTop(Algorithm):
+
+    def __init__(self, slotCallback):
+        super().__init__(slotCallback)
+
+        blur = BlurOp("Blur", self.callback)
+        self.addOperator(blur)
+
+        topHat = TopHatOp("Top Hat", self.callback)
+        self.addOperator(topHat)
+
+class BlurNeg(Algorithm):
+
+    def __init__(self, slotCallback):
+        super().__init__(slotCallback)
+
+        blur = BlurOp("Blur", self.callback)
+        self.addOperator(blur)
+
+        negate = NegateOp("Negate", self.callback)
+        self.addOperator(negate)
