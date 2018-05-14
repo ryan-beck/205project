@@ -8,6 +8,7 @@ import numpy as np
 import cv2
 from testalgo import AlgoOne
 from testalgo2 import AlgoTwo
+from finalAlgos import RedNeg, BlueNeg, GreenNeg
 from transformoperator import TranOp
 
 class ArtEngine(QWidget):
@@ -41,7 +42,7 @@ class ArtEngine(QWidget):
 
         #Creating Buttons
 
-        filterNames = ["Algo1", "Algo2"]
+        filterNames = ["Select Filter", "Red x Negative", "Blue x Negative", "Green x Negative"]
         buttonsLayout = QHBoxLayout()
         self.openButton = QPushButton('Open', self)
         self.saveButton = QPushButton('Save', self)
@@ -64,12 +65,11 @@ class ArtEngine(QWidget):
         layout.addWidget(self.appNameLabel)
         layout.addWidget(self.image)
 
+        self.firstLabel = QLabel("Choose Your Filter")
 
         self.stacked_layout = QStackedLayout() # Creates stacked layout to hold the dial layouts for algos
-        self.createAlgoLayout()
-
+        self.stacked_layout.addWidget(self.firstLabel)
         layout.addLayout(self.stacked_layout)
-        self.stacked_layout.setCurrentIndex(0)
 
         self.setLayout(layout)
         self.setGeometry(100, 100, 300, 175)
@@ -83,14 +83,16 @@ class ArtEngine(QWidget):
         self.stacked_layout.addWidget(self.newWidget)
 
     def applyFilterClicked(self, value):
-        if value == 0:
-            self.tca = AlgoOne(self.imgMan)
-            self.createAlgoLayout()
-            self.stacked_layout.setCurrentIndex(self.stacked_layout.count()-1)
-        elif value == 1:
-            self.tca = AlgoTwo(self.imgMan)
-            self.createAlgoLayout()
-            self.stacked_layout.setCurrentIndex(self.stacked_layout.count()-1)
+        print(self.stacked_layout.count())
+        if value == 1:
+            self.tca = RedNeg(self.imgMan)
+        elif value == 2:
+            self.tca = BlueNeg(self.imgMan)
+        elif value == 3:
+            self.tca = GreenNeg(self.imgMan)
+        self.createAlgoLayout()
+        self.stacked_layout.setCurrentIndex(self.stacked_layout.count()-1)
+
 
     def openButtonClicked(self):
         options = QFileDialog.Options()
