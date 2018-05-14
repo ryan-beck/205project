@@ -129,7 +129,7 @@ class ArtEngine(QWidget):
 
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getSaveFileName(self,"Save Image",".jpg","Image Files (*.png *.jpg)", options=options)
+        fileName, _ = QFileDialog.getSaveFileName(self,"Save Image","myImage.jpg","Image Files (*.png *.jpg)", options=options)
         if fileName:
             print(fileName)
 
